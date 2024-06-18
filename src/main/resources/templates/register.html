@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+ <meta charset="UTF-8">
+ <title>Registración</title>
+ <style>
+  body {
+   font-family: 'Arial', sans-serif;
+   margin: 0;
+   padding: 0;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100vh;
+   background-color: #f4f4f4;
+  }
+
+  .form-container {
+   background-color: #fff;
+   width: 400px;
+   padding: 20px;
+   border-radius: 8px;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  h2 {
+   color: #5e057e;
+   text-align: center;
+   margin-bottom: 20px;
+  }
+
+  label {
+   display: block;
+   margin-bottom: 8px;
+   color: #5e057e;
+  }
+
+  input {
+   width: 100%;
+   padding: 8px;
+   margin-bottom: 16px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   box-sizing: border-box;
+  }
+
+  button {
+   background-color: #5e057e;
+   color: #fff;
+   padding: 10px 20px;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+   font-weight: bold;
+   transition: background-color 0.3s;
+  }
+
+  button:hover {
+   background-color: #299d00;
+  }
+
+  .form-footer {
+   text-align: center;
+   margin-top: 20px;
+   color: #888;
+  }
+
+  .success-message {
+   background-color: #5e057e;
+   color: #fff;
+   padding: 10px;
+   border-radius: 3px;
+   text-align: center;
+  }
+ </style>
+</head>
+
+<body>
+ <div class="form-container">
+
+  <div th:if="${param.success}">
+   <div class="success-message">
+    <p>Registro exitoso</p>
+   </div>
+  </div>
+
+  <h2>Registro</h2>
+  <form th:action="@{/register}" method="post" role="form" th:object="${user}">
+   <label for="fullname">Nombre y apellido:</label>
+   <input th:field="*{fullname}" type="text" id="fullname" name="fullname" placeholder="Ingrese su nombre y apellido"
+    required>
+
+   <label for="username">Usuario:</label>
+   <input th:field="*{username}" type="text" id="username" name="username" placeholder="Ingrese su nombre de usuario"
+    required>
+
+   <label for="password">Contraseña</label>
+   <input th:field="*{password}" type="password" id="password" name="password"
+    placeholder="Ingrese su contraseña" required>
+
+   <button type="submit">Registrar</button>
+  </form>
+  <div th:if="${UserExist}">
+   <span style="color: red;">Usuario en uso</span>
+  </div>
+   <div th:if="${InvalidPwd}" >
+    <span style="color: red;">Contraseña inválida</span>
+   </div>
+  <div>
+   <span class="form-footer">¿Ya posee una cuenta? <a th:href="@{/login}">Inicie sesión aquí.</a></span>
+  </div>
+ </div>
+</body>
+
+</html>
